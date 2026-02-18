@@ -60,11 +60,76 @@
 
     {% block content %}{% endblock %}
 
-    <footer class="bg-gray-800 text-white py-8">
-        <div class="max-w-4xl mx-auto px-4 text-center">
-            <p class="text-2xl font-serif mb-2">Sara & Francesco</p>
-            <p class="text-gray-400">June 15, 2026 • Villa Verde, Tuscany</p>
-            <p class="text-gray-500 text-sm mt-4">Made with love</p>
+    <footer class="bg-white border-t-2 border-emerald-100 mt-20">
+        <div class="max-w-6xl mx-auto px-4 py-12">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mb-3">
+                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-1">When</p>
+                    <p class="font-semibold text-gray-800">June 15, 2026</p>
+                    <p class="text-xs text-gray-500 mt-1">Saturday</p>
+                </div>
+
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mb-3">
+                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-1">Ceremony</p>
+                    <p class="font-semibold text-gray-800">3:00 PM</p>
+                    <p class="text-xs text-gray-500 mt-1">Chiesa di San Michele</p>
+                </div>
+
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mb-3">
+                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-1">Reception</p>
+                    <p class="font-semibold text-gray-800">Villa Verde</p>
+                    <p class="text-xs text-gray-500 mt-1">7:00 PM</p>
+                </div>
+
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mb-3">
+                        <svg class="w-6 h-6 text-emerald-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-1">Location</p>
+                    <p class="font-semibold text-gray-800">Greve in Chianti</p>
+                    <p class="text-xs text-gray-500 mt-1">Tuscany, Italy</p>
+                </div>
+            </div>
+
+            <div class="border-t border-emerald-100 pt-8 text-center">
+                <p class="text-gray-600 mb-3">
+                    We can't wait to celebrate with you
+                </p>
+                <div class="flex items-center justify-center gap-2 text-emerald-600">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                    <span class="font-serif">Sara & Francesco</span>
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                </div>
+                <p class="text-xs text-gray-500 mt-4">
+                    © 2026 Sara & Francesco Wedding. All moments cherished.
+                </p>
+            </div>
         </div>
     </footer>
 
