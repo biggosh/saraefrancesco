@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="min-h-screen py-16 px-4" style="background-image: url('https://images.pexels.com/photos/2885578/pexels-photo-2885578.jpeg?auto=compress&cs=tinysrgb&w=1920'); background-size: cover; background-position: center; background-attachment: fixed;">
+    <div class="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
+    <div class="max-w-4xl mx-auto relative z-10">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-serif text-gray-800 mb-4">Schedule & Locations</h1>
+            <p class="text-lg text-gray-600">Saturday, June 15, 2026</p>
+        </div>
+
+        <div class="space-y-6 mb-16">
+            <div class="bg-white rounded-2xl p-6 shadow-md border-4 border-emerald-200">
+                <div class="flex items-start gap-4">
+                    <div class="w-14 h-14 bg-emerald-50 rounded-full flex items-center justify-center flex-shrink-0">
+                        <svg class="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"></path></svg>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-emerald-600 font-semibold">3:00 PM</span>
+                        </div>
+                        <h3 class="text-2xl font-serif text-gray-800 mb-2">Ceremony</h3>
+                        <p class="text-gray-600 mb-3">Join us for our wedding ceremony in this beautiful historic church.</p>
+                        <div class="text-gray-700 mb-4">
+                            <p class="font-medium">Chiesa di San Valentino</p>
+                            <p class="text-sm text-gray-500">Via Roma, 33050 Fiumicello UD, Friuli-Venezia Giulia</p>
+                        </div>
+                        <button class="show-map-btn inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium text-sm" data-name="Chiesa di San Valentino" data-address="Via Roma, 33050 Fiumicello UD, Friuli-Venezia Giulia" data-lat="45.8167" data-lng="13.4167">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
+                            Show Map
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 shadow-md border-4 border-emerald-200">
+                <div class="flex items-start gap-4">
+                    <div class="w-14 h-14 bg-emerald-50 rounded-full flex items-center justify-center flex-shrink-0">
+                        <svg class="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5.5 2L1 6l4.5 4m0-8v12a4 4 0 004 4h8.5"></path></svg>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-emerald-600 font-semibold">5:00 PM</span>
+                        </div>
+                        <h3 class="text-2xl font-serif text-gray-800 mb-2">Reception</h3>
+                        <p class="text-gray-600 mb-3">Celebrate with us over a delicious Italian feast and dancing.</p>
+                        <div class="text-gray-700 mb-4">
+                            <p class="font-medium">Villa Locatelli</p>
+                            <p class="text-sm text-gray-500">Via Gorizia, 34071 Cormons GO, Friuli-Venezia Giulia</p>
+                        </div>
+                        <button class="show-map-btn inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium text-sm" data-name="Villa Locatelli" data-address="Via Gorizia, 34071 Cormons GO, Friuli-Venezia Giulia" data-lat="45.9550" data-lng="13.4750">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
+                            Show Map
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border-4 border-emerald-200 mb-8">
+            <h2 class="text-2xl font-serif text-gray-800 mb-6">Getting There</h2>
+            <div class="space-y-6">
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">By Car</h3>
+                    <p class="text-gray-600 leading-relaxed">The venues are located in Friuli-Venezia Giulia. Free parking is available at both locations.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Accommodation</h3>
+                    <p class="text-gray-600 leading-relaxed">We recommend staying in the nearby area. There are several hotels and B&Bs in Cormons and surrounding towns.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-emerald-50 rounded-2xl p-8 border-4 border-emerald-200">
+            <h2 class="text-2xl font-serif text-gray-800 mb-4">Important Information</h2>
+            <div class="space-y-3 text-gray-700">
+                <p><span class="text-emerald-600 font-semibold">•</span> Dress code: Formal attire (suits and evening dresses)</p>
+                <p><span class="text-emerald-600 font-semibold">•</span> Please arrive at least 15 minutes before the ceremony begins</p>
+                <p><span class="text-emerald-600 font-semibold">•</span> Transportation will be provided between the church and the reception venue</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="map-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeMapModal()"></div>
+    <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden border-4 border-emerald-200">
+        <div class="flex items-center justify-between p-6 border-b border-gray-200 bg-emerald-50">
+            <div>
+                <h2 class="text-2xl font-serif text-gray-800" id="modal-location-name"></h2>
+                <p class="text-sm text-gray-600 mt-1" id="modal-location-address"></p>
+            </div>
+            <button onclick="closeMapModal()" class="p-2 hover:bg-emerald-100 rounded-full transition-colors">
+                <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <div id="map-container" class="h-[500px] w-full"></div>
+        <div class="p-4 border-t border-gray-200 bg-gray-50">
+            <a id="google-maps-link" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium">
+                Open in Google Maps
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let map = null;
+let marker = null;
+
+function showMapModal(name, address, lat, lng) {
+    $('#modal-location-name').text(name);
+    $('#modal-location-address').text(address);
+    $('#google-maps-link').attr('href', `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`);
+    $('#map-modal').removeClass('hidden');
+    $('body').css('overflow', 'hidden');
+    
+    setTimeout(() => {
+        if (!map) {
+            map = L.map('map-container').setView([lat, lng], 15);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+        } else {
+            map.setView([lat, lng], 15);
+        }
+        
+        if (marker) {
+            map.removeLayer(marker);
+        }
+        marker = L.marker([lat, lng]).addTo(map)
+            .bindPopup(`<b>${name}</b><br>${address}`).openPopup();
+    }, 100);
+}
+
+function closeMapModal() {
+    $('#map-modal').addClass('hidden');
+    $('body').css('overflow', 'unset');
+}
+
+$(document).ready(function() {
+    $('.show-map-btn').click(function() {
+        const name = $(this).data('name');
+        const address = $(this).data('address');
+        const lat = parseFloat($(this).data('lat'));
+        const lng = parseFloat($(this).data('lng'));
+        showMapModal(name, address, lat, lng);
+    });
+});
+</script>
+{% endblock %}

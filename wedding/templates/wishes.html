@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="min-h-screen py-16 px-4" style="background-image: url('https://images.pexels.com/photos/6985003/pexels-photo-6985003.jpeg?auto=compress&cs=tinysrgb&w=1920'); background-size: cover; background-position: center; background-attachment: fixed;">
+    <div class="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
+    <div class="max-w-4xl mx-auto relative z-10">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-serif text-gray-800 mb-4">Wedding Wishes</h1>
+            <p class="text-lg text-gray-600">Share your love and best wishes for our marriage</p>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-8 shadow-md border-4 border-emerald-200 mb-12">
+            <h2 class="text-2xl font-serif text-gray-800 mb-6">Leave a Wish</h2>
+            <form method="post" id="wish-form">
+                {% csrf_token %}
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-medium mb-2">Your Name *</label>
+                    <input type="text" name="sender_name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500">
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-medium mb-2">Your Message *</label>
+                    <textarea name="message" required rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"></textarea>
+                </div>
+                <button type="submit" class="bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 transition-colors">
+                    Send Wish
+                </button>
+            </form>
+        </div>
+
+        <div class="space-y-6">
+            {% for wish in wishes %}
+            <div class="bg-white rounded-2xl p-6 shadow-md border-4 border-emerald-200">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-emerald-600 font-semibold text-lg">{{ wish.sender_name.0|upper }}</span>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-semibold text-gray-800 mb-1">{{ wish.sender_name }}</h3>
+                        <p class="text-sm text-gray-500 mb-2">{{ wish.created_at|date:"F d, Y" }}</p>
+                        <p class="text-gray-700 leading-relaxed">{{ wish.message }}</p>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center text-gray-500">No wishes yet. Be the first!</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

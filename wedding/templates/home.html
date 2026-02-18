@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen bg-white" style="background-image: url('https://images.pexels.com/photos/8948426/pexels-photo-8948426.jpeg'); background-size: cover; background-position: center; background-attachment: fixed; background-repeat: no-repeat;">
+    <div class="max-w-4xl mx-auto px-4 py-16">
+        <div class="relative mb-20 animate-fade-in">
+            <div class="relative rounded-3xl overflow-hidden mb-8 h-80 bg-cover bg-center border-4 border-emerald-200" style="background-image: url('https://images.pexels.com/photos/3862632/pexels-photo-3862632.jpeg?auto=compress&cs=tinysrgb&w=1200');">
+                <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/40 flex flex-col items-center justify-center">
+                    <h1 class="text-6xl font-serif text-white mb-4 drop-shadow-lg">Sara & Francesco</h1>
+                    <p class="text-2xl text-white drop-shadow-lg">We're getting married!</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-6 text-gray-600">
+                <div class="flex items-center gap-2 bg-emerald-50 px-4 py-2 rounded-full border border-emerald-200">
+                    <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    <span class="font-medium">June 15, 2026</span>
+                </div>
+                <div class="hidden sm:block w-1 h-1 bg-emerald-600 rounded-full"></div>
+                <div class="flex items-center gap-2 bg-emerald-50 px-4 py-2 rounded-full border border-emerald-200">
+                    <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <span class="font-medium">Villa Verde, Tuscany</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12 mb-16 relative">
+            <div class="bg-white rounded-2xl p-8 shadow-md border-4 border-emerald-200 hover:shadow-lg transition-all relative">
+                <div class="w-24 h-24 rounded-full flex items-center justify-center mb-6 mx-auto overflow-hidden border-4 border-emerald-300 shadow-md">
+                    <img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Sara" class="w-full h-full object-cover">
+                </div>
+                <h2 class="text-3xl font-serif text-center text-gray-800 mb-4">Sara</h2>
+                <p class="text-gray-600 leading-relaxed text-center">
+                    Born and raised in Florence, Sara is a passionate architect who finds beauty in every detail.
+                    She loves art, nature walks, and experimenting with new recipes in the kitchen. Her warm smile
+                    and creative spirit bring joy to everyone around her.
+                </p>
+                <div class="mt-6 pt-6 border-t-2 border-emerald-100">
+                    <p class="text-sm text-gray-500 text-center italic">
+                        "Life is the flower for which love is the honey"
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-md border-4 border-emerald-200 hover:shadow-lg transition-all relative">
+                <div class="w-24 h-24 rounded-full flex items-center justify-center mb-6 mx-auto overflow-hidden border-4 border-emerald-300 shadow-md">
+                    <img src="https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Francesco" class="w-full h-full object-cover">
+                </div>
+                <h2 class="text-3xl font-serif text-center text-gray-800 mb-4">Francesco</h2>
+                <p class="text-gray-600 leading-relaxed text-center">
+                    A software engineer from Rome with a love for music and adventure. Francesco plays the guitar,
+                    enjoys hiking in the mountains, and has an infectious laugh. His logical mind perfectly
+                    complements his romantic heart.
+                </p>
+                <div class="mt-6 pt-6 border-t-2 border-emerald-100">
+                    <p class="text-sm text-gray-500 text-center italic">
+                        "In all the world, there is no heart for me like yours"
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border-4 border-emerald-200 mb-12 relative">
+            <h2 class="text-3xl font-serif text-center text-gray-800 mb-6">Our Story</h2>
+            <div class="space-y-4 text-gray-600 leading-relaxed max-w-2xl mx-auto">
+                <p>
+                    We met on a rainy evening in October 2019 at a small café in the heart of Florence.
+                    Sara was sketching building designs, and Francesco was coding on his laptop. A shared
+                    power outlet brought us together, and the rest is history.
+                </p>
+                <p>
+                    After three years of adventures, laughter, and growing together, Francesco proposed
+                    during a sunset hike in the Dolomites. With tears of joy and the mountains as our
+                    witness, Sara said yes.
+                </p>
+                <p>
+                    Now we invite you to celebrate this special day with us as we begin our forever together.
+                </p>
+            </div>
+        </div>
+
+        <div class="text-center mb-12">
+            <a href="{% url 'rsvp' %}" class="inline-flex items-center gap-2 bg-emerald-600 text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-emerald-700 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+                Confirm Your Presence
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

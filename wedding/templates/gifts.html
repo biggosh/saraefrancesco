@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen py-16 px-4 relative" style="background-image: url('https://images.pexels.com/photos/264985/pexels-photo-264985.jpeg?auto=compress&cs=tinysrgb&w=1920'); background-size: cover; background-position: center; background-attachment: fixed;">
+    <div class="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
+
+    <div class="max-w-6xl mx-auto relative z-10">
+        <div class="text-center mb-12">
+            <div class="inline-block p-4 bg-emerald-50 rounded-full mb-6">
+                <svg class="w-10 h-10 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <polyline points="20 12 20 22 4 22 4 12"></polyline>
+                    <rect x="2" y="7" width="20" height="5"></rect>
+                    <line x1="12" y1="22" x2="12" y2="7"></line>
+                    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+                    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+                </svg>
+            </div>
+            <h1 class="text-5xl font-serif text-gray-800 mb-4">Gift Registry</h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                Your presence is the greatest gift, but if you wish to honor us with something special,
+                here are a few items that would help us start our journey together.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="gifts-container">
+            {% for gift in gifts %}
+            <div class="bg-white rounded-2xl overflow-hidden shadow-md border-4 border-emerald-200 hover:shadow-lg transition-all gift-card" data-gift-id="{{ gift.id }}">
+                <div class="relative h-48 overflow-hidden bg-gray-100">
+                    <img src="{{ gift.photo_url }}" alt="{{ gift.name }}" class="w-full h-full object-cover">
+                    {% if gift.is_claimed %}
+                    <div class="absolute inset-0 bg-gray-900 bg-opacity-60 flex items-center justify-center">
+                        <div class="bg-white rounded-full px-4 py-2 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                            <span class="text-sm font-medium text-gray-700">Claimed</span>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ gift.name }}</h3>
+                    <p class="text-gray-600 text-sm mb-4 leading-relaxed">{{ gift.description }}</p>
+
+                    {% if gift.is_claimed and gift.claimed_by %}
+                    <p class="text-sm text-emerald-600 mb-4">Reserved by {{ gift.claimed_by }}</p>
+                    {% endif %}
+
+                    <div class="flex gap-2">
+                        {% if gift.website_link %}
+                        <a href="{{ gift.website_link }}" target="_blank" rel="noopener noreferrer" 
+                           class="flex-1 flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors text-sm font-medium">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                            View
+                        </a>
+                        {% endif %}
+
+                        <button class="claim-btn flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-all 
+                                       {% if gift.is_claimed %}bg-gray-100 text-gray-700 hover:bg-gray-200{% else %}bg-emerald-600 text-white hover:bg-emerald-700{% endif %}"
+                                data-gift-id="{{ gift.id }}" data-claimed="{{ gift.is_claimed|yesno:'true,false' }}">
+                            {% if gift.is_claimed %}Unclaim{% else %}Claim Gift{% endif %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-full text-center py-12">
+                <p class="text-gray-500">No gifts in the registry yet.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    $('.claim-btn').click(function() {
+        const btn = $(this);
+        const giftId = btn.data('gift-id');
+        const isClaimed = btn.data('claimed');
+        
+        btn.prop('disabled', true);
+        btn.html('<svg class="w-4 h-4 animate-spin mx-auto" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>');
+        
+        let claimedBy = null;
+        if (!isClaimed) {
+            claimedBy = prompt('Please enter your name to claim this gift:');
+            if (!claimedBy) {
+                btn.prop('disabled', false);
+                btn.html(isClaimed ? 'Unclaim' : 'Claim Gift');
+                return;
+            }
+        }
+        
+        $.ajax({
+            url: '{% url "gift_claim" %}',
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            data: JSON.stringify({
+                gift_id: giftId,
+                is_claimed: !isClaimed,
+                claimed_by: claimedBy
+            }),
+            contentType: 'application/json',
+            success: function(response) {
+                location.reload();
+            },
+            error: function() {
+                alert('Failed to update gift status. Please try again.');
+                btn.prop('disabled', false);
+                btn.html(isClaimed ? 'Unclaim' : 'Claim Gift');
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
