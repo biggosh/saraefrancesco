@@ -31,13 +31,17 @@ class RSVPAdmin(admin.ModelAdmin):
 
 @admin.register(GiftRegistryItem)
 class GiftRegistryItemAdmin(admin.ModelAdmin):
-    list_display = ['name', 'priority', 'is_claimed', 'claimed_by', 'created_at']
+    list_display = ['name', 'image_thumbnail', 'priority', 'is_claimed', 'claimed_by', 'created_at']
     list_filter = ['is_claimed', 'priority']
     search_fields = ['name', 'description', 'claimed_by']
-    readonly_fields = ['id', 'created_at']
+    readonly_fields = ['id', 'created_at', 'image_preview']
     fieldsets = [
         ('Gift Information', {
-            'fields': ['name', 'description', 'photo_url', 'website_link', 'priority']
+            'fields': ['name', 'description', 'website_link', 'priority']
+        }),
+        ('Image Options', {
+            'fields': ['photo_image', 'photo_url', 'image_preview'],
+            'description': 'Upload an image file OR provide an external image URL. If both are provided, the uploaded image will be used.'
         }),
         ('Claim Status', {
             'fields': ['is_claimed', 'claimed_by']
@@ -47,6 +51,22 @@ class GiftRegistryItemAdmin(admin.ModelAdmin):
             'classes': ['collapse']
         })
     ]
+
+    def image_thumbnail(self, obj):
+        from django.utils.html import format_html
+        image_url = obj.get_image_url()
+        if image_url:
+            return format_html('<img src="{}" width="50" height="50" style="object-fit: cover; border-radius: 4px;" />', image_url)
+        return '-'
+    image_thumbnail.short_description = 'Image'
+
+    def image_preview(self, obj):
+        from django.utils.html import format_html
+        image_url = obj.get_image_url()
+        if image_url:
+            return format_html('<img src="{}" width="300" style="border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" />', image_url)
+        return 'No image uploaded or URL provided'
+    image_preview.short_description = 'Current Image Preview'
 
 
 @admin.register(Wish)

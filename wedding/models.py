@@ -45,7 +45,8 @@ class GiftRegistryItem(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255)
     description = models.TextField()
-    photo_url = models.CharField(max_length=500)
+    photo_image = models.ImageField(upload_to='gift_images/', blank=True, null=True, help_text='Upload an image file')
+    photo_url = models.CharField(max_length=500, blank=True, null=True, help_text='Or provide an external image URL')
     website_link = models.URLField(blank=True, null=True)
     priority = models.IntegerField(default=0)
     is_claimed = models.BooleanField(default=False)
@@ -60,6 +61,11 @@ class GiftRegistryItem(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_image_url(self):
+        if self.photo_image:
+            return self.photo_image.url
+        return self.photo_url or ''
 
 
 class Wish(models.Model):

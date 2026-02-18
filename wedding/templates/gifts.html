@@ -26,7 +26,7 @@
             {% for gift in gifts %}
             <div class="bg-white rounded-2xl overflow-hidden shadow-md border-4 border-emerald-200 hover:shadow-lg transition-all gift-card" data-gift-id="{{ gift.id }}">
                 <div class="relative h-48 overflow-hidden bg-gray-100">
-                    <img src="{{ gift.photo_url }}" alt="{{ gift.name }}" class="w-full h-full object-cover">
+                    <img src="{{ gift.get_image_url }}" alt="{{ gift.name }}" class="w-full h-full object-cover" onerror="this.src='https://images.pexels.com/photos/264985/pexels-photo-264985.jpeg?auto=compress&cs=tinysrgb&w=400'">
                     {% if gift.is_claimed %}
                     <div class="absolute inset-0 bg-gray-900 bg-opacity-60 flex items-center justify-center">
                         <div class="bg-white rounded-full px-4 py-2 flex items-center gap-2">
