@@ -6,7 +6,7 @@
     <div class="max-w-4xl mx-auto relative z-10">
         <div class="text-center mb-12">
             <h1 class="text-5xl font-serif text-gray-800 mb-4">Programma e Località</h1>
-            <p class="text-lg text-gray-600">Sabato, 15 Giugno 2026</p>
+            <p class="text-lg text-gray-600">Sabato, 3 Ottobre 2026</p>
         </div>
 
         <div class="space-y-6 mb-16">
@@ -23,9 +23,9 @@
                         <p class="text-gray-600 mb-3">Unitevi a noi per la nostra cerimonia nuziale in questa splendida chiesa storica.</p>
                         <div class="text-gray-700 mb-4">
                             <p class="font-medium">Chiesa di San Valentino</p>
-                            <p class="text-sm text-gray-500">Via Roma, 33050 Fiumicello UD, Friuli-Venezia Giulia</p>
+                            <p class="text-sm text-gray-500">Via Antonio Gramsci 8, 33059 Villa Vicentina (UD)</p>
                         </div>
-                        <button class="show-map-btn inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium text-sm" data-name="Chiesa di San Valentino" data-address="Via Roma, 33050 Fiumicello UD, Friuli-Venezia Giulia" data-lat="45.8167" data-lng="13.4167">
+                        <button class="show-map-btn inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium text-sm" data-name="Chiesa di San Valentino" data-address="Via Antonio Gramsci 8, 33059 Villa Vicentina (UD)" data-lat="45.79127" data-lng="13.40809">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
                             Mostra Mappa
                         </button>
@@ -46,9 +46,9 @@
                         <p class="text-gray-600 mb-3">Festeggiate con noi davanti a un delizioso banchetto italiano e balli.</p>
                         <div class="text-gray-700 mb-4">
                             <p class="font-medium">Villa Locatelli</p>
-                            <p class="text-sm text-gray-500">Via Gorizia, 34071 Cormons GO, Friuli-Venezia Giulia</p>
+                            <p class="text-sm text-gray-500">Localtità Angoris 7, 34071 Cormons (GO)</p>
                         </div>
-                        <button class="show-map-btn inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium text-sm" data-name="Villa Locatelli" data-address="Via Gorizia, 34071 Cormons GO, Friuli-Venezia Giulia" data-lat="45.9550" data-lng="13.4750">
+                        <button class="show-map-btn inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium text-sm" data-name="Villa Locatelli" data-address="Località Angoris 7, 34071 Cormons (GO)" data-lat="45.93717" data-lng="13.45951">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
                             Mostra Mappa
                         </button>
@@ -126,7 +126,7 @@ function showMapModal(name, address, lat, lng) {
     
     setTimeout(() => {
         if (!map) {
-            map = L.map('map-container').setView([lat, lng], 15);
+            map = L.map('map-container').setView([lat, lng], 17);
             map.attributionControl.setPrefix('');
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap contributors'
