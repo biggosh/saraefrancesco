@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="min-h-screen py-16 px-4" style="background-image: url('https://images.pexels.com/photos/2885578/pexels-photo-2885578.jpeg?auto=compress&cs=tinysrgb&w=1920'); background-size: cover; background-position: center; background-attachment: fixed;">
+<div class="min-h-screen py-16 px-4 relative" style="background-image: url('https://images.pexels.com/photos/2885578/pexels-photo-2885578.jpeg?auto=compress&cs=tinysrgb&w=1920'); background-size: cover; background-position: center; background-attachment: fixed;">
     <div class="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
     <div class="max-w-4xl mx-auto relative z-10">
         <div class="text-center mb-12">
@@ -118,6 +118,7 @@ function showMapModal(name, address, lat, lng) {
     setTimeout(() => {
         if (!map) {
             map = L.map('map-container').setView([lat, lng], 15);
+            map.attributionControl.setPrefix('');
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap contributors'
             }).addTo(map);
