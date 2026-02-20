@@ -17,7 +17,7 @@
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-2">
-                            <span class="text-emerald-600 font-semibold">15:00</span>
+                            <span class="text-emerald-600 font-semibold">11:00</span>
                         </div>
                         <h3 class="text-2xl font-serif text-gray-800 mb-2">Cerimonia</h3>
                         <p class="text-gray-600 mb-3">Unitevi a noi per la nostra cerimonia nuziale in questa splendida chiesa storica.</p>
@@ -40,7 +40,7 @@
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-2">
-                            <span class="text-emerald-600 font-semibold">17:00</span>
+                            <span class="text-emerald-600 font-semibold">12:30</span>
                         </div>
                         <h3 class="text-2xl font-serif text-gray-800 mb-2">Ricevimento</h3>
                         <p class="text-gray-600 mb-3">Festeggiate con noi davanti a un delizioso banchetto italiano e balli.</p>
@@ -53,7 +53,7 @@
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
                                 Mostra Mappa
                             </button>
-                            <button id="show-route-btn" class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm">
+                            <button id="show-route-btn" class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium text-sm">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7M13 12l-2-2m0 0l-2 2m2-2v6"></path></svg>
                                 Percorso
                             </button>
@@ -111,8 +111,8 @@
 
 <div id="route-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
     <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeRouteModal()"></div>
-    <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden border-4 border-blue-200">
-        <div class="flex items-center justify-between p-6 border-b border-gray-200 bg-blue-50">
+    <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden border-4 border-emerald-200">
+        <div class="flex items-center justify-between p-6 border-b border-gray-200 bg-emerald-50">
             <div>
                 <h2 class="text-2xl font-serif text-gray-800">Percorso dalla Chiesa al Ricevimento</h2>
                 <p class="text-sm text-gray-600 mt-1" id="route-summary">Chiesa di San Valentino → Villa Locatelli</p>
@@ -127,18 +127,18 @@
                 <div class="p-4">
                     <div id="route-info" class="mb-4 p-4 bg-white rounded-lg shadow-sm border border-gray-200">
                         <div class="flex items-center gap-2 mb-2">
-                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             <span class="font-semibold text-gray-800" id="route-duration">Calcolo in corso...</span>
                         </div>
                         <div class="flex items-center gap-2">
-                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
+                            <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
                             <span class="font-semibold text-gray-800" id="route-distance">...</span>
                         </div>
                     </div>
                     <h3 class="font-semibold text-gray-800 mb-3">Indicazioni stradali</h3>
                     <div id="route-instructions" class="space-y-2">
                         <div class="flex items-center justify-center py-8">
-                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"></div>
                         </div>
                     </div>
                 </div>
@@ -151,7 +151,7 @@
             </a>
             <a id="osm-route-link" href="https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=45.79127%2C13.40809%3B45.93717%2C13.45951" target="_blank" rel="noopener noreferrer" class="flex-1 inline-flex items-center justify-center px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                Apri in OpenStreetMap
+{#                Apri in OpenStreetMap#}
             </a>
         </div>
     </div>
@@ -206,10 +206,10 @@ function showMapModal(name, address, lat, lng) {
             map = L.map('map-container').setView([lat, lng], 17);
             map.attributionControl.setPrefix('');
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
+                attribution: '© OpenStreetMap'
             }).addTo(map);
         } else {
-            map.setView([lat, lng], 15);
+            map.setView([lat, lng], 17);
         }
 
         if (marker) {
@@ -272,7 +272,7 @@ function showRouteModal() {
             routeMap = L.map('route-map-container').setView([45.8642, 13.4338], 11);
             routeMap.attributionControl.setPrefix('');
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
+                attribution: '© OpenStreetMap'
             }).addTo(routeMap);
 
             routingControl = L.Routing.control({
@@ -316,8 +316,8 @@ function showRouteModal() {
                     const text = instruction.text || instruction.road || 'Continua';
 
                     return `
-                        <div class="flex gap-3 p-3 bg-white rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
-                            <div class="flex-shrink-0 w-8 h-8 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 font-bold">
+                        <div class="flex gap-3 p-3 bg-white rounded-lg border border-gray-200 hover:border-emerald-300 transition-colors">
+                            <div class="flex-shrink-0 w-8 h-8 bg-blue-50 rounded-full flex items-center justify-center text-emerald-600 font-bold">
                                 ${index + 1}
                             </div>
                             <div class="flex-1">
