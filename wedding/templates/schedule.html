@@ -53,10 +53,10 @@
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
                                 Mostra Mappa
                             </button>
-                            <a href="https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=45.79127%2C13.40809%3B45.93717%2C13.45951#map=12/45.8642/13.4338" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm">
+                            <button id="show-route-btn" class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7M13 12l-2-2m0 0l-2 2m2-2v6"></path></svg>
                                 Percorso
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -108,12 +108,62 @@
         </div>
     </div>
 </div>
+
+<div id="route-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeRouteModal()"></div>
+    <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden border-4 border-blue-200">
+        <div class="flex items-center justify-between p-6 border-b border-gray-200 bg-blue-50">
+            <div>
+                <h2 class="text-2xl font-serif text-gray-800">Percorso dalla Chiesa al Ricevimento</h2>
+                <p class="text-sm text-gray-600 mt-1" id="route-summary">Chiesa di San Valentino → Villa Locatelli</p>
+            </div>
+            <button onclick="closeRouteModal()" class="p-2 hover:bg-blue-100 rounded-full transition-colors">
+                <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <div class="flex flex-col md:flex-row h-[600px]">
+            <div id="route-map-container" class="flex-1 h-full"></div>
+            <div class="w-full md:w-80 bg-gray-50 border-l border-gray-200 overflow-y-auto">
+                <div class="p-4">
+                    <div id="route-info" class="mb-4 p-4 bg-white rounded-lg shadow-sm border border-gray-200">
+                        <div class="flex items-center gap-2 mb-2">
+                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="font-semibold text-gray-800" id="route-duration">Calcolo in corso...</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
+                            <span class="font-semibold text-gray-800" id="route-distance">...</span>
+                        </div>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-3">Indicazioni stradali</h3>
+                    <div id="route-instructions" class="space-y-2">
+                        <div class="flex items-center justify-center py-8">
+                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-4 border-t border-gray-200 bg-gray-50 flex gap-2">
+            <a id="google-maps-route-link" href="https://www.google.com/maps/dir/45.79127,13.40809/45.93717,13.45951" target="_blank" rel="noopener noreferrer" class="flex-1 inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                Apri in Google Maps
+            </a>
+            <a id="osm-route-link" href="https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=45.79127%2C13.40809%3B45.93717%2C13.45951" target="_blank" rel="noopener noreferrer" class="flex-1 inline-flex items-center justify-center px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                Apri in OpenStreetMap
+            </a>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block extra_js %}
 <script>
 let map = null;
 let marker = null;
+let routeMap = null;
+let routingControl = null;
 
 // Configure Leaflet default icon paths
 delete L.Icon.Default.prototype._getIconUrl;
@@ -123,13 +173,34 @@ L.Icon.Default.mergeOptions({
     shadowUrl: '{% static "images/marker-shadow.png" %}'
 });
 
+// Custom icons for route
+const startIcon = L.icon({
+    iconUrl: '{% static "images/marker-icon.png" %}',
+    iconRetinaUrl: '{% static "images/marker-icon-2x.png" %}',
+    shadowUrl: '{% static "images/marker-shadow.png" %}',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
+
+const endIcon = L.icon({
+    iconUrl: '{% static "images/marker-icon.png" %}',
+    iconRetinaUrl: '{% static "images/marker-icon-2x.png" %}',
+    shadowUrl: '{% static "images/marker-shadow.png" %}',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
+
 function showMapModal(name, address, lat, lng) {
     $('#modal-location-name').text(name);
     $('#modal-location-address').text(address);
     $('#google-maps-link').attr('href', `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`);
     $('#map-modal').removeClass('hidden');
     $('body').css('overflow', 'hidden');
-    
+
     setTimeout(() => {
         if (!map) {
             map = L.map('map-container').setView([lat, lng], 17);
@@ -140,7 +211,7 @@ function showMapModal(name, address, lat, lng) {
         } else {
             map.setView([lat, lng], 15);
         }
-        
+
         if (marker) {
             map.removeLayer(marker);
         }
@@ -154,6 +225,133 @@ function closeMapModal() {
     $('body').css('overflow', 'unset');
 }
 
+function formatDistance(meters) {
+    if (meters >= 1000) {
+        return (meters / 1000).toFixed(1) + ' km';
+    }
+    return Math.round(meters) + ' m';
+}
+
+function formatDuration(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+
+    if (hours > 0) {
+        return `${hours} ora ${minutes} min`;
+    }
+    return `${minutes} minuti`;
+}
+
+function getInstructionIcon(type, modifier) {
+    const icons = {
+        'turn-right': '↱',
+        'turn-left': '↰',
+        'sharp-right': '⤴',
+        'sharp-left': '⤵',
+        'slight-right': '↗',
+        'slight-left': '↖',
+        'straight': '↑',
+        'roundabout': '⭮',
+        'arrive': '🏁',
+        'depart': '🚗'
+    };
+
+    const key = modifier ? `${type}-${modifier}` : type;
+    return icons[key] || icons[type] || '→';
+}
+
+function showRouteModal() {
+    $('#route-modal').removeClass('hidden');
+    $('body').css('overflow', 'hidden');
+
+    setTimeout(() => {
+        if (!routeMap) {
+            const startPoint = [45.79127, 13.40809];
+            const endPoint = [45.93717, 13.45951];
+
+            routeMap = L.map('route-map-container').setView([45.8642, 13.4338], 11);
+            routeMap.attributionControl.setPrefix('');
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(routeMap);
+
+            routingControl = L.Routing.control({
+                waypoints: [
+                    L.latLng(startPoint[0], startPoint[1]),
+                    L.latLng(endPoint[0], endPoint[1])
+                ],
+                router: L.Routing.osrmv1({
+                    serviceUrl: 'https://router.project-osrm.org/route/v1',
+                    language: 'it'
+                }),
+                lineOptions: {
+                    styles: [{color: '#2563eb', opacity: 0.8, weight: 6}]
+                },
+                show: false,
+                addWaypoints: false,
+                draggableWaypoints: false,
+                fitSelectedRoutes: true,
+                showAlternatives: false,
+                createMarker: function(i, wp, nWps) {
+                    const icon = i === 0 ? startIcon : endIcon;
+                    const label = i === 0 ? 'Chiesa di San Valentino' : 'Villa Locatelli';
+                    return L.marker(wp.latLng, {
+                        icon: icon,
+                        draggable: false
+                    }).bindPopup(label);
+                }
+            }).addTo(routeMap);
+
+            routingControl.on('routesfound', function(e) {
+                const route = e.routes[0];
+                const totalDistance = route.summary.totalDistance;
+                const totalTime = route.summary.totalTime;
+
+                $('#route-distance').text(formatDistance(totalDistance));
+                $('#route-duration').text(formatDuration(totalTime));
+
+                const instructionsHtml = route.instructions.map((instruction, index) => {
+                    const icon = getInstructionIcon(instruction.type, instruction.modifier);
+                    const distance = formatDistance(instruction.distance);
+                    const text = instruction.text || instruction.road || 'Continua';
+
+                    return `
+                        <div class="flex gap-3 p-3 bg-white rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
+                            <div class="flex-shrink-0 w-8 h-8 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 font-bold">
+                                ${index + 1}
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-medium text-gray-800">${text}</p>
+                                <p class="text-xs text-gray-500 mt-1">${distance}</p>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                $('#route-instructions').html(instructionsHtml);
+            });
+
+            routingControl.on('routingerror', function(e) {
+                console.error('Routing error:', e);
+                $('#route-instructions').html(`
+                    <div class="p-4 bg-red-50 border border-red-200 rounded-lg">
+                        <p class="text-sm text-red-800">Si è verificato un errore nel calcolo del percorso. Prova ad aprire in Google Maps o OpenStreetMap.</p>
+                    </div>
+                `);
+                $('#route-duration').text('Non disponibile');
+                $('#route-distance').text('Non disponibile');
+            });
+        } else {
+            routeMap.invalidateSize();
+        }
+    }, 100);
+}
+
+function closeRouteModal() {
+    $('#route-modal').addClass('hidden');
+    $('body').css('overflow', 'unset');
+}
+
 $(document).ready(function() {
     $('.show-map-btn').click(function() {
         const name = $(this).data('name');
@@ -161,6 +359,10 @@ $(document).ready(function() {
         const lat = parseFloat($(this).data('lat'));
         const lng = parseFloat($(this).data('lng'));
         showMapModal(name, address, lat, lng);
+    });
+
+    $('#show-route-btn').click(function() {
+        showRouteModal();
     });
 });
 </script>
