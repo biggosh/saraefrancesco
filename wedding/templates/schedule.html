@@ -108,6 +108,14 @@
 let map = null;
 let marker = null;
 
+// Configure Leaflet default icon paths
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+    iconRetinaUrl: '{% static "images/marker-icon-2x.png" %}',
+    iconUrl: '{% static "images/marker-icon.png" %}',
+    shadowUrl: '{% static "images/marker-shadow.png" %}'
+});
+
 function showMapModal(name, address, lat, lng) {
     $('#modal-location-name').text(name);
     $('#modal-location-address').text(address);
