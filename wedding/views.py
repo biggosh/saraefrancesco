@@ -65,7 +65,7 @@ def rsvp(request):
                     guest_order=i
                 )
 
-        messages.success(request, 'Thank you for your RSVP! We look forward to celebrating with you.')
+        messages.success(request, 'Grazie per la tua conferma! Non vediamo l\'ora di festeggiare con te.')
         return redirect('home')
 
     return render(request, 'rsvp.html')
@@ -81,7 +81,7 @@ def wishes(request):
             message=message
         )
 
-        messages.success(request, 'Thank you for your lovely wishes!')
+        messages.success(request, 'Grazie per i tuoi meravigliosi auguri!')
         return redirect('wishes')
 
     wishes_list = Wish.objects.all().order_by('-created_at')

@@ -4,24 +4,24 @@
     <div class="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
     <div class="max-w-4xl mx-auto relative z-10">
         <div class="text-center mb-12">
-            <h1 class="text-5xl font-serif text-gray-800 mb-4">Wedding Wishes</h1>
-            <p class="text-lg text-gray-600">Share your love and best wishes for our marriage</p>
+            <h1 class="text-5xl font-serif text-gray-800 mb-4">Auguri di Matrimonio</h1>
+            <p class="text-lg text-gray-600">Condividi il tuo amore e i migliori auguri per il nostro matrimonio</p>
         </div>
-        
+
         <div class="bg-white rounded-2xl p-8 shadow-md border-4 border-emerald-200 mb-12">
-            <h2 class="text-2xl font-serif text-gray-800 mb-6">Leave a Wish</h2>
+            <h2 class="text-2xl font-serif text-gray-800 mb-6">Lascia un Augurio</h2>
             <form method="post" id="wish-form">
                 {% csrf_token %}
                 <div class="mb-6">
-                    <label class="block text-gray-700 font-medium mb-2">Your Name *</label>
+                    <label class="block text-gray-700 font-medium mb-2">Il Tuo Nome *</label>
                     <input type="text" name="sender_name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500">
                 </div>
                 <div class="mb-6">
-                    <label class="block text-gray-700 font-medium mb-2">Your Message *</label>
+                    <label class="block text-gray-700 font-medium mb-2">Il Tuo Messaggio *</label>
                     <textarea name="message" required rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"></textarea>
                 </div>
                 <button type="submit" class="bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 transition-colors">
-                    Send Wish
+                    Invia Augurio
                 </button>
             </form>
         </div>
@@ -41,7 +41,7 @@
                 </div>
             </div>
             {% empty %}
-            <p class="text-center text-gray-500">No wishes yet. Be the first!</p>
+            <p class="text-center text-gray-500">Nessun augurio ancora. Sii il primo!</p>
             {% endfor %}
         </div>
     </div>

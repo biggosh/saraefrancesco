@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Sara & Francesco - Wedding{% endblock %}</title>
+    <title>{% block title %}Sara & Francesco - Matrimonio{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     {% load static %}
@@ -43,9 +43,9 @@
                 <div class="hidden md:flex gap-8">
                     <a href="{% url 'home' %}" class="text-gray-700 hover:text-emerald-600 transition-colors font-medium">Home</a>
                     <a href="{% url 'rsvp' %}" class="text-gray-700 hover:text-emerald-600 transition-colors font-medium">RSVP</a>
-                    <a href="{% url 'gifts' %}" class="text-gray-700 hover:text-emerald-600 transition-colors font-medium">Gift Registry</a>
-                    <a href="{% url 'schedule' %}" class="text-gray-700 hover:text-emerald-600 transition-colors font-medium">Schedule</a>
-                    <a href="{% url 'wishes' %}" class="text-gray-700 hover:text-emerald-600 transition-colors font-medium">Wishes</a>
+                    <a href="{% url 'gifts' %}" class="text-gray-700 hover:text-emerald-600 transition-colors font-medium">Lista Nozze</a>
+                    <a href="{% url 'schedule' %}" class="text-gray-700 hover:text-emerald-600 transition-colors font-medium">Programma</a>
+                    <a href="{% url 'wishes' %}" class="text-gray-700 hover:text-emerald-600 transition-colors font-medium">Auguri</a>
                 </div>
             </div>
         </div>
@@ -75,9 +75,9 @@
                             <line x1="3" y1="10" x2="21" y2="10"></line>
                         </svg>
                     </div>
-                    <p class="text-sm text-gray-600 mb-1">When</p>
-                    <p class="font-semibold text-gray-800">June 15, 2026</p>
-                    <p class="text-xs text-gray-500 mt-1">Saturday</p>
+                    <p class="text-sm text-gray-600 mb-1">Quando</p>
+                    <p class="font-semibold text-gray-800">15 Giugno 2026</p>
+                    <p class="text-xs text-gray-500 mt-1">Sabato</p>
                 </div>
 
                 <div class="flex flex-col items-center text-center">
@@ -87,8 +87,8 @@
                             <polyline points="12 6 12 12 16 14"></polyline>
                         </svg>
                     </div>
-                    <p class="text-sm text-gray-600 mb-1">Ceremony</p>
-                    <p class="font-semibold text-gray-800">3:00 PM</p>
+                    <p class="text-sm text-gray-600 mb-1">Cerimonia</p>
+                    <p class="font-semibold text-gray-800">15:00</p>
                     <p class="text-xs text-gray-500 mt-1">Chiesa di San Michele</p>
                 </div>
 
@@ -99,9 +99,9 @@
                             <circle cx="12" cy="10" r="3"></circle>
                         </svg>
                     </div>
-                    <p class="text-sm text-gray-600 mb-1">Reception</p>
+                    <p class="text-sm text-gray-600 mb-1">Ricevimento</p>
                     <p class="font-semibold text-gray-800">Villa Verde</p>
-                    <p class="text-xs text-gray-500 mt-1">7:00 PM</p>
+                    <p class="text-xs text-gray-500 mt-1">19:00</p>
                 </div>
 
                 <div class="flex flex-col items-center text-center">
@@ -110,15 +110,15 @@
                             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                         </svg>
                     </div>
-                    <p class="text-sm text-gray-600 mb-1">Location</p>
+                    <p class="text-sm text-gray-600 mb-1">Località</p>
                     <p class="font-semibold text-gray-800">Greve in Chianti</p>
-                    <p class="text-xs text-gray-500 mt-1">Tuscany, Italy</p>
+                    <p class="text-xs text-gray-500 mt-1">Toscana, Italia</p>
                 </div>
             </div>
 
             <div class="border-t border-emerald-100 pt-8 text-center">
                 <p class="text-gray-600 mb-3">
-                    We can't wait to celebrate with you
+                    Non vediamo l'ora di festeggiare con voi
                 </p>
                 <div class="flex items-center justify-center gap-2 text-emerald-600">
                     <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -130,7 +130,7 @@
                     </svg>
                 </div>
                 <p class="text-xs text-gray-500 mt-4">
-                    © 2026 Sara & Francesco Wedding. All moments cherished.
+                    © 2026 Matrimonio Sara & Francesco. Tutti i momenti sono preziosi.
                 </p>
             </div>
         </div>

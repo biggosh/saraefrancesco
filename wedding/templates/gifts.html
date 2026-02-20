@@ -15,10 +15,10 @@
                     <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
                 </svg>
             </div>
-            <h1 class="text-5xl font-serif text-gray-800 mb-4">Gift Registry</h1>
+            <h1 class="text-5xl font-serif text-gray-800 mb-4">Lista Nozze</h1>
             <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                Your presence is the greatest gift, but if you wish to honor us with something special,
-                here are a few items that would help us start our journey together.
+                La vostra presenza è il regalo più grande, ma se desiderate onorarci con qualcosa di speciale,
+                ecco alcuni articoli che ci aiuterebbero a iniziare il nostro viaggio insieme.
             </p>
         </div>
 
@@ -34,7 +34,7 @@
                                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                                 <polyline points="22 4 12 14.01 9 11.01"></polyline>
                             </svg>
-                            <span class="text-sm font-medium text-gray-700">Claimed</span>
+                            <span class="text-sm font-medium text-gray-700">Prenotato</span>
                         </div>
                     </div>
                     {% endif %}
@@ -45,33 +45,33 @@
                     <p class="text-gray-600 text-sm mb-4 leading-relaxed">{{ gift.description }}</p>
 
                     {% if gift.is_claimed and gift.claimed_by %}
-                    <p class="text-sm text-emerald-600 mb-4">Reserved by {{ gift.claimed_by }}</p>
+                    <p class="text-sm text-emerald-600 mb-4">Prenotato da {{ gift.claimed_by }}</p>
                     {% endif %}
 
                     <div class="flex gap-2">
                         {% if gift.website_link %}
-                        <a href="{{ gift.website_link }}" target="_blank" rel="noopener noreferrer" 
+                        <a href="{{ gift.website_link }}" target="_blank" rel="noopener noreferrer"
                            class="flex-1 flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors text-sm font-medium">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                                 <polyline points="15 3 21 3 21 9"></polyline>
                                 <line x1="10" y1="14" x2="21" y2="3"></line>
                             </svg>
-                            View
+                            Visualizza
                         </a>
                         {% endif %}
 
-                        <button class="claim-btn flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-all 
+                        <button class="claim-btn flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-all
                                        {% if gift.is_claimed %}bg-gray-100 text-gray-700 hover:bg-gray-200{% else %}bg-emerald-600 text-white hover:bg-emerald-700{% endif %}"
                                 data-gift-id="{{ gift.id }}" data-claimed="{{ gift.is_claimed|yesno:'true,false' }}">
-                            {% if gift.is_claimed %}Unclaim{% else %}Claim Gift{% endif %}
+                            {% if gift.is_claimed %}Annulla{% else %}Prenota Regalo{% endif %}
                         </button>
                     </div>
                 </div>
             </div>
             {% empty %}
             <div class="col-span-full text-center py-12">
-                <p class="text-gray-500">No gifts in the registry yet.</p>
+                <p class="text-gray-500">Nessun regalo nella lista ancora.</p>
             </div>
             {% endfor %}
         </div>
@@ -93,10 +93,10 @@ $(document).ready(function() {
         
         let claimedBy = null;
         if (!isClaimed) {
-            claimedBy = prompt('Please enter your name to claim this gift:');
+            claimedBy = prompt('Inserisci il tuo nome per prenotare questo regalo:');
             if (!claimedBy) {
                 btn.prop('disabled', false);
-                btn.html(isClaimed ? 'Unclaim' : 'Claim Gift');
+                btn.html(isClaimed ? 'Annulla' : 'Prenota Regalo');
                 return;
             }
         }
@@ -117,9 +117,9 @@ $(document).ready(function() {
                 location.reload();
             },
             error: function() {
-                alert('Failed to update gift status. Please try again.');
+                alert('Impossibile aggiornare lo stato del regalo. Riprova.');
                 btn.prop('disabled', false);
-                btn.html(isClaimed ? 'Unclaim' : 'Claim Gift');
+                btn.html(isClaimed ? 'Annulla' : 'Prenota Regalo');
             }
         });
     });

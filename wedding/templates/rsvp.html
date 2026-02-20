@@ -6,14 +6,14 @@
         <div class="bg-white rounded-2xl p-8 shadow-lg border-4 border-emerald-200">
             <div class="text-center mb-8">
                 <h1 class="text-4xl font-serif text-gray-800 mb-4">RSVP</h1>
-                <p class="text-gray-600">We would be honored by your presence</p>
+                <p class="text-gray-600">Saremmo onorati dalla vostra presenza</p>
             </div>
 
             <form method="post" id="rsvp-form">
                 {% csrf_token %}
                 
                 <div class="mb-6">
-                    <label class="block text-gray-700 font-medium mb-2">Your Name *</label>
+                    <label class="block text-gray-700 font-medium mb-2">Il Tuo Nome *</label>
                     <input type="text" name="guest_name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
                 </div>
 
@@ -23,38 +23,38 @@
                 </div>
 
                 <div class="mb-6">
-                    <label class="block text-gray-700 font-medium mb-2">Will you attend? *</label>
+                    <label class="block text-gray-700 font-medium mb-2">Parteciperai? *</label>
                     <div class="flex gap-4">
                         <label class="flex items-center">
                             <input type="radio" name="attending" value="true" checked class="mr-2">
-                            <span>Yes, I'll be there!</span>
+                            <span>Sì, ci sarò!</span>
                         </label>
                         <label class="flex items-center">
                             <input type="radio" name="attending" value="false" class="mr-2">
-                            <span>Sorry, can't make it</span>
+                            <span>Mi dispiace, non posso</span>
                         </label>
                     </div>
                 </div>
 
                 <div class="mb-6">
-                    <label class="block text-gray-700 font-medium mb-2">Number of Guests *</label>
+                    <label class="block text-gray-700 font-medium mb-2">Numero di Ospiti *</label>
                     <input type="number" name="number_of_guests" min="1" max="10" value="1" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
                 </div>
 
                 <div class="mb-6" id="additional-guests-container"></div>
 
                 <div class="mb-6">
-                    <label class="block text-gray-700 font-medium mb-2">Food Intolerances/Allergies</label>
+                    <label class="block text-gray-700 font-medium mb-2">Intolleranze/Allergie Alimentari</label>
                     <textarea name="food_intolerances" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"></textarea>
                 </div>
 
                 <div class="mb-6">
-                    <label class="block text-gray-700 font-medium mb-2">Message to the Couple</label>
+                    <label class="block text-gray-700 font-medium mb-2">Messaggio agli Sposi</label>
                     <textarea name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"></textarea>
                 </div>
 
                 <button type="submit" class="w-full bg-emerald-600 text-white py-3 rounded-lg font-medium hover:bg-emerald-700 transition-colors">
-                    Submit RSVP
+                    Invia RSVP
                 </button>
             </form>
         </div>
@@ -74,8 +74,8 @@ $(document).ready(function() {
             for (let i = 2; i <= numGuests; i++) {
                 container.append(`
                     <div class="mb-4">
-                        <label class="block text-gray-700 font-medium mb-2">Guest ${i} Name *</label>
-                        <input type="text" name="guest_${i}_name" required 
+                        <label class="block text-gray-700 font-medium mb-2">Nome Ospite ${i} *</label>
+                        <input type="text" name="guest_${i}_name" required
                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
                     </div>
                 `);
