@@ -110,18 +110,17 @@
             justify-content: center;
             padding: 1rem;
             opacity: 0;
-            pointer-events: none;
+            pointer-events: auto;
             transition: opacity 0.3s ease-in-out;
         }
 
         .modal-backdrop.modal-show {
             opacity: 1;
-            pointer-events: auto;
         }
 
         .modal-backdrop.hidden {
             display: none;
-            pointer-events: none;
+            opacity: 0;
         }
 
         .modal-container {
