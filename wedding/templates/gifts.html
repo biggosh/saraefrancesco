@@ -78,29 +78,177 @@
     </div>
 </div>
 
+<div id="claimModal" class="modal-backdrop hidden">
+    <div class="modal-container">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <div class="text-center mb-6">
+                <div class="inline-block p-4 bg-emerald-50 rounded-full mb-4">
+                    <svg class="w-10 h-10 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <h2 class="text-3xl font-serif text-gray-800 mb-3">Grazie di Cuore!</h2>
+                <div id="thankYouMessage" class="text-gray-600 leading-relaxed mb-6"></div>
+            </div>
+
+            <form id="claimForm" class="space-y-4">
+                <div>
+                    <label for="senderName" class="block text-sm font-medium text-gray-700 mb-2">Il Tuo Nome *</label>
+                    <input type="text" id="senderName" required
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
+                           placeholder="Inserisci il tuo nome">
+                    <p id="nameError" class="text-red-600 text-sm mt-1 hidden"></p>
+                </div>
+
+                <div>
+                    <label for="senderMessage" class="block text-sm font-medium text-gray-700 mb-2">Il Tuo Messaggio *</label>
+                    <textarea id="senderMessage" required rows="4" maxlength="500"
+                              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all resize-none"
+                              placeholder="Scrivi un messaggio per gli sposi..."></textarea>
+                    <div class="flex justify-between items-center mt-1">
+                        <p id="messageError" class="text-red-600 text-sm hidden"></p>
+                        <p id="charCount" class="text-sm text-gray-500">0 / 500</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-3 pt-2">
+                    <button type="button" id="cancelBtn"
+                            class="flex-1 px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-all">
+                        Annulla
+                    </button>
+                    <button type="submit" id="submitBtn"
+                            class="flex-1 px-6 py-3 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                        Invia Regalo
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block extra_js %}
 <script>
 $(document).ready(function() {
-    $('.claim-btn').click(function() {
-        const btn = $(this);
-        const giftId = btn.data('gift-id');
-        const isClaimed = btn.data('claimed');
-        
-        btn.prop('disabled', true);
-        btn.html('<svg class="w-4 h-4 animate-spin mx-auto" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>');
-        
-        let claimedBy = null;
-        if (!isClaimed) {
-            claimedBy = prompt('Inserisci il tuo nome per prenotare questo regalo:');
-            if (!claimedBy) {
-                btn.prop('disabled', false);
-                btn.html(isClaimed ? 'Annulla' : 'Prenota Regalo');
-                return;
-            }
+    let currentGiftId = null;
+    let currentBtn = null;
+    const modal = $('#claimModal');
+    const senderNameInput = $('#senderName');
+    const senderMessageInput = $('#senderMessage');
+    const charCount = $('#charCount');
+    const nameError = $('#nameError');
+    const messageError = $('#messageError');
+    const submitBtn = $('#submitBtn');
+
+    const giftsData = {
+        {% for gift in gifts %}
+        '{{ gift.id }}': {
+            thankYouMessage: {{ gift.thank_you_message|default:"'La vostra presenza è il regalo più prezioso, ma se desiderate onorarci con un dono, vi saremo eternamente grati. Il vostro gesto d\'amore renderà ancora più speciale l\'inizio del nostro viaggio insieme.'"|safe|escapejs }}
+        },
+        {% endfor %}
+    };
+
+    function openModal(giftId, btn) {
+        currentGiftId = giftId;
+        currentBtn = btn;
+
+        const giftData = giftsData[giftId];
+        $('#thankYouMessage').text(giftData.thankYouMessage);
+
+        senderNameInput.val('');
+        senderMessageInput.val('');
+        charCount.text('0 / 500');
+        nameError.addClass('hidden');
+        messageError.addClass('hidden');
+
+        modal.removeClass('hidden');
+        setTimeout(() => {
+            modal.addClass('modal-show');
+            $('body').css('overflow', 'hidden');
+        }, 10);
+
+        senderNameInput.focus();
+    }
+
+    function closeModal() {
+        modal.removeClass('modal-show');
+        setTimeout(() => {
+            modal.addClass('hidden');
+            $('body').css('overflow', '');
+        }, 300);
+
+        if (currentBtn) {
+            currentBtn.prop('disabled', false);
+            const isClaimed = currentBtn.data('claimed');
+            currentBtn.html(isClaimed ? 'Annulla' : 'Prenota Regalo');
         }
-        
+
+        currentGiftId = null;
+        currentBtn = null;
+    }
+
+    senderMessageInput.on('input', function() {
+        const length = $(this).val().length;
+        charCount.text(`${length} / 500`);
+
+        if (length >= 450) {
+            charCount.addClass('text-amber-600 font-medium');
+        } else {
+            charCount.removeClass('text-amber-600 font-medium');
+        }
+    });
+
+    $('#closeModal, #cancelBtn').click(closeModal);
+
+    modal.click(function(e) {
+        if (e.target === this) {
+            closeModal();
+        }
+    });
+
+    $(document).keydown(function(e) {
+        if (e.key === 'Escape' && !modal.hasClass('hidden')) {
+            closeModal();
+        }
+    });
+
+    $('#claimForm').submit(function(e) {
+        e.preventDefault();
+
+        nameError.addClass('hidden');
+        messageError.addClass('hidden');
+
+        const senderName = senderNameInput.val().trim();
+        const senderMessage = senderMessageInput.val().trim();
+
+        let hasError = false;
+
+        if (!senderName) {
+            nameError.text('Il nome è obbligatorio').removeClass('hidden');
+            hasError = true;
+        }
+
+        if (!senderMessage) {
+            messageError.text('Il messaggio è obbligatorio').removeClass('hidden');
+            hasError = true;
+        } else if (senderMessage.length > 500) {
+            messageError.text('Il messaggio non può superare i 500 caratteri').removeClass('hidden');
+            hasError = true;
+        }
+
+        if (hasError) return;
+
+        submitBtn.prop('disabled', true).html('<svg class="w-5 h-5 animate-spin mx-auto" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>');
+
         $.ajax({
             url: '{% url "gift_claim" %}',
             method: 'POST',
@@ -108,20 +256,66 @@ $(document).ready(function() {
                 'X-CSRFToken': '{{ csrf_token }}'
             },
             data: JSON.stringify({
-                gift_id: giftId,
-                is_claimed: !isClaimed,
-                claimed_by: claimedBy
+                gift_id: currentGiftId,
+                is_claimed: true,
+                claimed_by: senderName,
+                sender_name: senderName,
+                sender_message: senderMessage
             }),
             contentType: 'application/json',
             success: function(response) {
-                location.reload();
+                if (response.success) {
+                    location.reload();
+                } else {
+                    messageError.text(response.error || 'Si è verificato un errore').removeClass('hidden');
+                    submitBtn.prop('disabled', false).html('Invia Regalo');
+                }
             },
-            error: function() {
-                alert('Impossibile aggiornare lo stato del regalo. Riprova.');
-                btn.prop('disabled', false);
-                btn.html(isClaimed ? 'Annulla' : 'Prenota Regalo');
+            error: function(xhr) {
+                const errorMsg = xhr.responseJSON?.error || 'Impossibile aggiornare lo stato del regalo. Riprova.';
+                messageError.text(errorMsg).removeClass('hidden');
+                submitBtn.prop('disabled', false).html('Invia Regalo');
             }
         });
+    });
+
+    $('.claim-btn').click(function() {
+        const btn = $(this);
+        const giftId = btn.data('gift-id');
+        const isClaimed = btn.data('claimed');
+
+        if (!isClaimed) {
+            btn.prop('disabled', true);
+            btn.html('<svg class="w-4 h-4 animate-spin mx-auto" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>');
+            openModal(giftId, btn);
+        } else {
+            if (confirm('Sei sicuro di voler annullare questa prenotazione?')) {
+                btn.prop('disabled', true);
+                btn.html('<svg class="w-4 h-4 animate-spin mx-auto" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>');
+
+                $.ajax({
+                    url: '{% url "gift_claim" %}',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    data: JSON.stringify({
+                        gift_id: giftId,
+                        is_claimed: false,
+                        claimed_by: null
+                    }),
+                    contentType: 'application/json',
+                    success: function(response) {
+                        location.reload();
+                    },
+                    error: function() {
+                        alert('Impossibile annullare la prenotazione. Riprova.');
+                        btn.prop('disabled', false);
+                        btn.html('Annulla');
+                    }
+                });
+            }
+        }
     });
 });
 </script>

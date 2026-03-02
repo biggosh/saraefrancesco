@@ -74,6 +74,82 @@
         body.menu-open {
             overflow: hidden;
         }
+
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .modal-backdrop.modal-show {
+            opacity: 1;
+        }
+
+        .modal-container {
+            width: 100%;
+            max-width: 32rem;
+            transform: scale(0.9);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .modal-backdrop.modal-show .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            padding: 2rem;
+            position: relative;
+            border: 3px solid rgb(16 185 129);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem;
+            color: rgb(107 114 128);
+            transition: all 0.2s;
+            border-radius: 0.5rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: rgb(16 185 129);
+            background: rgb(236 253 245);
+        }
+
+        @media (max-width: 640px) {
+            .modal-content {
+                padding: 1.5rem;
+            }
+
+            .modal-backdrop {
+                padding: 0.5rem;
+            }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
     </style>
     {% block extra_css %}{% endblock %}
 </head>

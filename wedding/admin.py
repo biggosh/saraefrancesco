@@ -31,20 +31,22 @@ class RSVPAdmin(admin.ModelAdmin):
 
 @admin.register(GiftRegistryItem)
 class GiftRegistryItemAdmin(admin.ModelAdmin):
-    list_display = ['name', 'image_thumbnail', 'priority', 'is_claimed', 'claimed_by', 'created_at']
+    list_display = ['name', 'image_thumbnail', 'priority', 'is_claimed', 'claimed_by', 'claimed_at', 'created_at']
     list_filter = ['is_claimed', 'priority']
-    search_fields = ['name', 'description', 'claimed_by']
-    readonly_fields = ['id', 'created_at', 'image_preview']
+    search_fields = ['name', 'description', 'claimed_by', 'sender_message']
+    readonly_fields = ['id', 'created_at', 'image_preview', 'sender_message', 'claimed_at']
     fieldsets = [
         ('Gift Information', {
-            'fields': ['name', 'description', 'website_link', 'priority']
+            'fields': ['name', 'description', 'website_link', 'priority', 'thank_you_message'],
+            'description': 'The thank you message will be shown to guests when they claim this gift.'
         }),
         ('Image Options', {
             'fields': ['photo_image', 'photo_url', 'image_preview'],
             'description': 'Upload an image file OR provide an external image URL. If both are provided, the uploaded image will be used.'
         }),
         ('Claim Status', {
-            'fields': ['is_claimed', 'claimed_by']
+            'fields': ['is_claimed', 'claimed_by', 'sender_message', 'claimed_at'],
+            'description': 'Sender message and claimed date are automatically set when a guest claims the gift.'
         }),
         ('Metadata', {
             'fields': ['id', 'created_at'],

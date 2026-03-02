@@ -51,6 +51,9 @@ class GiftRegistryItem(models.Model):
     priority = models.IntegerField(default=0)
     is_claimed = models.BooleanField(default=False)
     claimed_by = models.CharField(max_length=255, blank=True, null=True)
+    thank_you_message = models.TextField(blank=True, null=True, help_text='Custom thank you message shown to guests when claiming this gift')
+    sender_message = models.CharField(max_length=500, blank=True, null=True, help_text='Message from the guest who claimed this gift')
+    claimed_at = models.DateTimeField(blank=True, null=True, help_text='When this gift was claimed')
     created_at = models.DateTimeField(default=timezone.now)
 
     class Meta:
