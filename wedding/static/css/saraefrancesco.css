@@ -1568,3 +1568,11 @@ video {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
+
+.leaflet-routing-container {
+  display: none !important;
+}
+
+.leaflet-top.leaflet-right {
+  display: none !important;
+}
