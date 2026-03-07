@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.utils import timezone
 import json
-from .models import GiftRegistryItem, RSVP, RSVPGuest, Wish
+from .models import GiftRegistryItem, GiftContribution, RSVP, RSVPGuest, Wish
 
 
 def home(request):
@@ -25,43 +25,35 @@ def gift_claim(request):
     try:
         data = json.loads(request.body)
         gift_id = data.get('gift_id')
-        is_claimed = data.get('is_claimed')
-        claimed_by = data.get('claimed_by')
-        sender_name = data.get('sender_name', '')
-        sender_message = data.get('sender_message', '')
+        contributor_name = data.get('sender_name', '').strip()
+        contributor_message = data.get('sender_message', '').strip()
 
-        if is_claimed:
-            if not sender_name or not sender_name.strip():
-                return JsonResponse({
-                    'success': False,
-                    'error': 'Il nome è obbligatorio'
-                }, status=400)
+        if not contributor_name:
+            return JsonResponse({
+                'success': False,
+                'error': 'Il nome è obbligatorio'
+            }, status=400)
 
-            if not sender_message or not sender_message.strip():
-                return JsonResponse({
-                    'success': False,
-                    'error': 'Il messaggio è obbligatorio'
-                }, status=400)
+        if not contributor_message:
+            return JsonResponse({
+                'success': False,
+                'error': 'Il messaggio è obbligatorio'
+            }, status=400)
 
-            if len(sender_message) > 500:
-                return JsonResponse({
-                    'success': False,
-                    'error': 'Il messaggio non può superare i 500 caratteri'
-                }, status=400)
+        if len(contributor_message) > 500:
+            return JsonResponse({
+                'success': False,
+                'error': 'Il messaggio non può superare i 500 caratteri'
+            }, status=400)
 
         gift = GiftRegistryItem.objects.get(id=gift_id)
-        gift.is_claimed = is_claimed
 
-        if is_claimed:
-            gift.claimed_by = claimed_by
-            gift.sender_message = sender_message.strip()
-            gift.claimed_at = timezone.now()
-        else:
-            gift.claimed_by = None
-            gift.sender_message = None
-            gift.claimed_at = None
-
-        gift.save()
+        GiftContribution.objects.create(
+            gift=gift,
+            contributor_name=contributor_name,
+            contributor_message=contributor_message,
+            contributed_at=timezone.now()
+        )
 
         return JsonResponse({'success': True})
     except GiftRegistryItem.DoesNotExist:

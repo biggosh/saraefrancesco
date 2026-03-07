@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import RSVP, RSVPGuest, GiftRegistryItem, Wish
+from .models import RSVP, RSVPGuest, GiftRegistryItem, GiftContribution, Wish
 
 
 class RSVPGuestInline(admin.TabularInline):
@@ -29,12 +29,23 @@ class RSVPAdmin(admin.ModelAdmin):
     ]
 
 
+class GiftContributionInline(admin.TabularInline):
+    model = GiftContribution
+    extra = 0
+    fields = ['contributor_name', 'contributor_message', 'contributed_at']
+    readonly_fields = ['contributor_name', 'contributor_message', 'contributed_at']
+    can_delete = True
+    verbose_name = 'Contribution'
+    verbose_name_plural = 'Contributions from Guests'
+
+
 @admin.register(GiftRegistryItem)
 class GiftRegistryItemAdmin(admin.ModelAdmin):
-    list_display = ['name', 'image_thumbnail', 'priority', 'is_claimed', 'claimed_by', 'claimed_at', 'created_at']
-    list_filter = ['is_claimed', 'priority']
-    search_fields = ['name', 'description', 'claimed_by', 'sender_message']
-    readonly_fields = ['id', 'created_at', 'image_preview', 'sender_message', 'claimed_at']
+    list_display = ['name', 'image_thumbnail', 'priority', 'contributions_count', 'created_at']
+    list_filter = ['priority', 'created_at']
+    search_fields = ['name', 'description']
+    readonly_fields = ['id', 'created_at', 'image_preview']
+    inlines = [GiftContributionInline]
     fieldsets = [
         ('Gift Information', {
             'fields': ['name', 'description', 'website_link', 'priority', 'thank_you_message'],
@@ -43,10 +54,6 @@ class GiftRegistryItemAdmin(admin.ModelAdmin):
         ('Image Options', {
             'fields': ['photo_image', 'photo_url', 'image_preview'],
             'description': 'Upload an image file OR provide an external image URL. If both are provided, the uploaded image will be used.'
-        }),
-        ('Claim Status', {
-            'fields': ['is_claimed', 'claimed_by', 'sender_message', 'claimed_at'],
-            'description': 'Sender message and claimed date are automatically set when a guest claims the gift.'
         }),
         ('Metadata', {
             'fields': ['id', 'created_at'],
@@ -69,6 +76,37 @@ class GiftRegistryItemAdmin(admin.ModelAdmin):
             return format_html('<img src="{}" width="300" style="border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" />', image_url)
         return 'No image uploaded or URL provided'
     image_preview.short_description = 'Current Image Preview'
+
+    def contributions_count(self, obj):
+        return obj.contribution_count()
+    contributions_count.short_description = 'Contributions'
+
+
+@admin.register(GiftContribution)
+class GiftContributionAdmin(admin.ModelAdmin):
+    list_display = ['contributor_name', 'gift', 'contributed_at', 'message_preview']
+    list_filter = ['contributed_at', 'gift']
+    search_fields = ['contributor_name', 'contributor_message', 'gift__name']
+    readonly_fields = ['id', 'gift', 'contributor_name', 'contributor_message', 'contributed_at']
+    fieldsets = [
+        ('Contribution Information', {
+            'fields': ['gift', 'contributor_name', 'contributed_at']
+        }),
+        ('Message', {
+            'fields': ['contributor_message']
+        }),
+        ('Metadata', {
+            'fields': ['id'],
+            'classes': ['collapse']
+        })
+    ]
+
+    def message_preview(self, obj):
+        return obj.contributor_message[:50] + '...' if len(obj.contributor_message) > 50 else obj.contributor_message
+    message_preview.short_description = 'Message Preview'
+
+    def has_add_permission(self, request):
+        return False
 
 
 @admin.register(Wish)

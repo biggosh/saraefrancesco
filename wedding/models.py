@@ -49,11 +49,7 @@ class GiftRegistryItem(models.Model):
     photo_url = models.CharField(max_length=500, blank=True, null=True, help_text='Or provide an external image URL')
     website_link = models.URLField(blank=True, null=True)
     priority = models.IntegerField(default=0)
-    is_claimed = models.BooleanField(default=False)
-    claimed_by = models.CharField(max_length=255, blank=True, null=True)
     thank_you_message = models.TextField(blank=True, null=True, help_text='Custom thank you message shown to guests when claiming this gift')
-    sender_message = models.CharField(max_length=500, blank=True, null=True, help_text='Message from the guest who claimed this gift')
-    claimed_at = models.DateTimeField(blank=True, null=True, help_text='When this gift was claimed')
     created_at = models.DateTimeField(default=timezone.now)
 
     class Meta:
@@ -69,6 +65,26 @@ class GiftRegistryItem(models.Model):
         if self.photo_image:
             return self.photo_image.url
         return self.photo_url or ''
+
+    def contribution_count(self):
+        return self.contributions.count()
+
+
+class GiftContribution(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    gift = models.ForeignKey(GiftRegistryItem, on_delete=models.CASCADE, related_name='contributions')
+    contributor_name = models.CharField(max_length=255)
+    contributor_message = models.TextField(max_length=500)
+    contributed_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        db_table = 'gift_contributions'
+        ordering = ['-contributed_at']
+        verbose_name = 'Gift Contribution'
+        verbose_name_plural = 'Gift Contributions'
+
+    def __str__(self):
+        return f"{self.contributor_name} - {self.gift.name}"
 
 
 class Wish(models.Model):
