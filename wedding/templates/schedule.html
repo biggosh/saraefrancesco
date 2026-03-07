@@ -301,21 +301,71 @@ function formatDuration(seconds) {
 }
 
 function getInstructionIcon(type, modifier) {
-    const icons = {
-        'turn-right': '↱',
-        'turn-left': '↰',
-        'sharp-right': '⤴',
-        'sharp-left': '⤵',
-        'slight-right': '↗',
-        'slight-left': '↖',
-        'straight': '↑',
-        'roundabout': '⭮',
-        'arrive': '🏁',
-        'depart': '🚗'
+    // Map all possible instruction type and modifier combinations
+    // Using professional Unicode symbols for better visual clarity
+
+    // Handle combined type + modifier first
+    if (type && modifier) {
+        const combined = `${type}_${modifier}`;
+        const combinedIcons = {
+            'Head_Right': '🚗',
+            'SharpLeft_SharpLeft': '⮪',
+            'Continue_Right': '↱',
+            'Continue_Straight': '⬆️',
+            'Continue_Left': '↰',
+            'EndOfRoad_Right': '⤴',
+            'SlightRight_SlightRight': '↗',
+            'Left_Left': '⬅',
+            'Merge_Left': '↙',
+            'OffRamp_Right': '🛣️',
+            'Right_Right': '➡',
+            'DestinationReached_Right': '🏁',
+            'Fork_Right': '⑂',
+            'Roundabout_SlightRight': '🔄',
+            'Roundabout_Straight': '⤴',
+            'Roundabout_Right': '↻',
+            'Straight_Straight': '⬆️'
+        };
+
+        if (combinedIcons[combined]) {
+            return combinedIcons[combined];
+        }
+    }
+
+    // Handle modifier-only fallbacks
+    if (modifier) {
+        const modifierIcons = {
+            'Right': '➡',
+            'Left': '⬅',
+            'SharpLeft': '⮪',
+            'SharpRight': '⮬',
+            'SlightRight': '↗',
+            'SlightLeft': '↖',
+            'Straight': '⬆️'
+        };
+
+        if (modifierIcons[modifier]) {
+            return modifierIcons[modifier];
+        }
+    }
+
+    // Handle type-only fallbacks
+    const typeIcons = {
+        'Head': '🚗',
+        'Depart': '🚗',
+        'Arrive': '🏁',
+        'DestinationReached': '🏁',
+        'Straight': '⬆️',
+        'Continue': '⬆️',
+        'Turn': '↪',
+        'Roundabout': '🔄',
+        'Merge': '↙',
+        'Fork': '⑂',
+        'OffRamp': '🛣️',
+        'EndOfRoad': '⤴'
     };
 
-    const key = modifier ? `${type}-${modifier}` : type;
-    return icons[key] || icons[type] || '→';
+    return typeIcons[type] || '→';
 }
 
 function showRouteModal() {
