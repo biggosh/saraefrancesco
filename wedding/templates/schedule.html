@@ -162,6 +162,8 @@
 <script>
 let map = null;
 let marker = null;
+let parkingPolygon = null;
+let parkingMarker = null;
 let routeMap = null;
 let routingControl = null;
 
@@ -171,6 +173,14 @@ L.Icon.Default.mergeOptions({
     iconRetinaUrl: '{% static "images/marker-icon-2x.png" %}',
     iconUrl: '{% static "images/marker-icon.png" %}',
     shadowUrl: '{% static "images/marker-shadow.png" %}'
+});
+
+// Custom parking icon
+const parkingIcon = L.icon({
+    iconUrl: '{% static "images/parking-icon.svg" %}',
+    iconSize: [40, 40],
+    iconAnchor: [20, 20],
+    popupAnchor: [0, -20]
 });
 
 // Custom icons for route
@@ -202,6 +212,8 @@ function showMapModal(name, address, lat, lng) {
     $('body').css('overflow', 'hidden');
 
     setTimeout(() => {
+        const isReception = name === 'Villa Locatelli';
+
         if (!map) {
             map = L.map('map-container').setView([lat, lng], 17);
             map.attributionControl.setPrefix('');
@@ -212,11 +224,57 @@ function showMapModal(name, address, lat, lng) {
             map.setView([lat, lng], 17);
         }
 
+        // Remove existing markers and polygons
         if (marker) {
             map.removeLayer(marker);
         }
+        if (parkingPolygon) {
+            map.removeLayer(parkingPolygon);
+            parkingPolygon = null;
+        }
+        if (parkingMarker) {
+            map.removeLayer(parkingMarker);
+            parkingMarker = null;
+        }
+
         marker = L.marker([lat, lng]).addTo(map)
             .bindPopup(`<b>${name}</b><br>${address}`).openPopup();
+
+        // Add parking area for Villa Locatelli
+        if (isReception) {
+            const parkingCoords = [
+                [45.93678, 13.45864],
+                [45.93693, 13.45912],
+                [45.93653, 13.45944],
+                [45.93639, 13.45889]
+            ];
+
+            parkingPolygon = L.polygon(parkingCoords, {
+                color: '#10b981',
+                fillColor: '#10b981',
+                fillOpacity: 0.2,
+                weight: 3
+            }).addTo(map);
+
+            parkingPolygon.bindPopup('<b>Area Parcheggio</b>');
+
+            // Calculate center of parking area
+            const centerLat = (45.93678 + 45.93693 + 45.93653 + 45.93639) / 4;
+            const centerLng = (13.45864 + 13.45912 + 13.45944 + 13.45889) / 4;
+
+            parkingMarker = L.marker([centerLat, centerLng], {
+                icon: parkingIcon
+            }).addTo(map);
+
+            parkingMarker.bindPopup('<b>Parcheggio</b>');
+
+            // Fit bounds to show both venue and parking
+            const bounds = L.latLngBounds([
+                [lat, lng],
+                ...parkingCoords
+            ]);
+            map.fitBounds(bounds, { padding: [50, 50] });
+        }
     }, 100);
 }
 
