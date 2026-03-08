@@ -1523,6 +1523,93 @@ video {
   --tw-ring-opacity: 0.5;
 }
 
+/* RAL 5020 Ocean Blue Color Classes */
+
+.border-ral5020-100 {
+  --tw-border-opacity: 1;
+  border-color: rgb(198 216 234 / var(--tw-border-opacity, 1));
+}
+
+.border-ral5020-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(156 186 216 / var(--tw-border-opacity, 1));
+}
+
+.border-ral5020-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(91 136 180 / var(--tw-border-opacity, 1));
+}
+
+.border-ral5020-600 {
+  --tw-border-opacity: 1;
+  border-color: rgb(27 68 111 / var(--tw-border-opacity, 1));
+}
+
+.bg-ral5020-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(198 216 234 / var(--tw-bg-opacity, 1));
+}
+
+.bg-ral5020-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(227 237 247 / var(--tw-bg-opacity, 1));
+}
+
+.bg-ral5020-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(27 68 111 / var(--tw-bg-opacity, 1));
+}
+
+.text-ral5020-200 {
+  --tw-text-opacity: 1;
+  color: rgb(156 186 216 / var(--tw-text-opacity, 1));
+}
+
+.text-ral5020-600 {
+  --tw-text-opacity: 1;
+  color: rgb(27 68 111 / var(--tw-text-opacity, 1));
+}
+
+.hover\:border-ral5020-300:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(91 136 180 / var(--tw-border-opacity, 1));
+}
+
+.hover\:bg-ral5020-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(198 216 234 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-ral5020-50:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(227 237 247 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-ral5020-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(18 46 75 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:text-ral5020-600:hover {
+  --tw-text-opacity: 1;
+  color: rgb(27 68 111 / var(--tw-text-opacity, 1));
+}
+
+.focus\:border-ral5020-500:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(33 81 133 / var(--tw-border-opacity, 1));
+}
+
+.focus\:ring-ral5020-500:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(33 81 133 / var(--tw-ring-opacity, 1));
+}
+
+.focus\:ring-ral5020-600:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(27 68 111 / var(--tw-ring-opacity, 1));
+}
+
 @media (min-width: 640px) {
   .sm\:block {
     display: block;
